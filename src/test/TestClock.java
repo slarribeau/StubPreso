@@ -5,12 +5,10 @@ import main.User;
 import main.UserService;
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-import java.util.List;
-
-import static org.junit.Assert.*;
-
-public class TestUserService {
+public class TestClock {
   private UserService userService;
   private tests.FakeUserStore fakeUserStore;
   private StubTimeSource stubTimeSource;
@@ -23,24 +21,11 @@ public class TestUserService {
   }
 
   @Test
-  public void testFindingUserByName() { //18.33
+  public void testValidateTimestamp() { //18.33
     userService.register("bob");
     User user = userService.find("bob");
     assertNotNull(user);
     assertEquals("bob", user.getUsername());
-  }
-
-  @Test
-  public void testRegisterTwoUsers() {
-
-    userService.register("bob");
-    assertEquals(1, userService.users().size());
-
-    userService.register("alice");
-    assertEquals(2, userService.users().size());
-
-    User user = userService.find("alice");
-    assertEquals("alice", user.getUsername());
     assertEquals(stubTimeSource.currentTime(), user.getCreationTime());
   }
 }
