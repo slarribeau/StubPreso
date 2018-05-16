@@ -1,4 +1,4 @@
-package test;
+package tests;
 
 import main.SimpleUserService;
 import main.UserService;
@@ -9,12 +9,12 @@ import static org.junit.Assert.*;
 
 public class TestEmptyUserService {
   private UserService userService;
-  private tests.FakeUserStore fakeUserStore;
+  private FakeUserStore fakeUserStore;
   private StubTimeSource stubTimeSource;
 
   @Before
   public void createUserService() {
-    fakeUserStore = new tests.FakeUserStore();
+    fakeUserStore = new FakeUserStore();
     stubTimeSource = new StubTimeSource();
     userService = new SimpleUserService(fakeUserStore, stubTimeSource);
   }
@@ -23,6 +23,7 @@ public class TestEmptyUserService {
   public void testDefaultUserSrviceHasNoUsers() {
     assertEquals(0, userService.users().size());
   }
+
   @Test
   public void testFindingNonExistantUser() {
     assertNull(userService.find("bob"));
