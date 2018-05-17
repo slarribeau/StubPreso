@@ -29,6 +29,14 @@ public class TestUserService {
   }
 
   @Test
+  public void testTimeStamp() {
+    userService.register("alice");
+    User user = userService.find("alice");
+    assertEquals(stubTimeSource.currentTime(), user.getCreationTime());
+    System.out.println(user.getCreationTime());
+  }
+
+  @Test
   public void testRegisterTwoUsers() {
 
     userService.register("bob");
